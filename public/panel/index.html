@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Panel IA — Autonimus-Q Cloud</title>
+  <style>
+    :root { --bg:#0b0f14; --card:#121923; --fg:#e7eef7; --muted:#95a3b9; --acc:#79c0ff; --ok:#9ae6b4; --err:#ff7b72; }
+    *{box-sizing:border-box} body{margin:0;background:linear-gradient(135deg,var(--bg) 0%,#1a2332 100%);color:var(--fg);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;min-height:100vh}
+    .wrap{max-width:960px;margin:6vh auto;padding:24px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .card{background:rgba(18,25,35,0.9);border-radius:14px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.3);backdrop-filter:blur(10px);border:1px solid rgba(121,192,255,0.1)}
+    h1{margin:0 0 6px;font-size:28px;color:var(--acc);text-shadow:0 0 20px rgba(121,192,255,0.3)}
+    .muted{color:var(--muted);font-size:14px}
+    .row{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0}
+    button{background:#1a2532;color:var(--fg);border:1px solid #223246;border-radius:10px;padding:10px 14px;cursor:pointer;transition:all 0.3s ease}
+    button:hover{filter:brightness(1.2);transform:translateY(-1px)}
+    .badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px}
+    .ok{background:rgba(154,230,180,.12);color:var(--ok);border:1px solid rgba(154,230,180,.4)}
+    .err{background:rgba(255,123,114,.12);color:var(--err);border:1px solid rgba(255,123,114,.35)}
+    pre{white-space:pre-wrap;background:rgba(14,20,27,0.8);border-radius:12px;padding:12px;max-height:340px;overflow:auto;font-size:12px;border:1px solid #223246}
+    input[type=password]{background:rgba(14,20,27,0.8);border:1px solid #223246;border-radius:10px;color:var(--fg);padding:10px;width:100%}
+    .kvs{display:grid;grid-template-columns:180px 1fr;gap:8px}
+    .kvs div{padding:6px 10px;background:rgba(14,20,27,0.6);border-radius:10px;font-size:13px}
+    .header-status{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+    .pulse{animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header-status">
+      <h1>Panel IA — Autonimus-Q Cloud</h1>
+      <div class="badge ok pulse" id="connectionStatus">🟢 Conectado</div>
+    </div>
+    <div class="muted">Diagnóstico rápido, entorno, DB, logs y comandos avanzados.</div>
+
+    <div class="grid" style="margin-top:16px">
+      <div class="card">
+        <h3>🌐 Estado del Sistema</h3>
+        <div class="kvs">
+          <div>Entorno</div><div id="env">—</div>
+          <div>Dominio</div><div id="domain">—</div>
+          <div>Servidor</div><div id="serverTime">—</div>
+          <div>Base de Datos</div><div id="dbStatus"><span class="badge">—</span></div>
+        </div>
+        <div class="row">
+          <button id="btnPing">🔄 Actualizar estado</button>
+          <button id="btnSystemInfo">📊 Info del sistema</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>⚡ Comandos Avanzados</h3>
+        <div class="row">
+          <input id="token" type="password" placeholder="PANEL_TOKEN (requerido)" />
+        </div>
+        <div class="row">
+          <button data-cmd="ping">📡 Ping Panel</button>
+          <button data-cmd="cache_clear">🧹 Limpiar caché</button>
+        </div>
+        <div class="row">
+          <button data-cmd="rotate_logs">🗂️ Rotar logs</button>
+          <button data-cmd="system_info">💻 Info sistema</button>
+        </div>
+        <div class="muted">Requiere token válido. Los resultados aparecen en "Logs del Sistema".</div>
+      </div>
+
+      <div class="card" style="grid-column:1/-1">
+        <h3>📋 Logs del Sistema</h3>
+        <div class="row">
+          <button id="btnLogs">📥 Cargar logs recientes</button>
+          <button id="btnWrite">✍️ Escribir log de prueba</button>
+          <button id="btnClear">🗑️ Limpiar vista</button>
+        </div>
+        <pre id="logBox">Cargando logs del sistema...</pre>
+      </div>
+
+      <div class="card">
+        <h3>🔗 Enlaces Rápidos</h3>
+        <div class="row">
+          <button onclick="window.open('../', '_blank')">🏠 Página Principal</button>
+          <button onclick="window.open('../core/db_connect.php', '_blank')">🔗 Test DB</button>
+        </div>
+        <div class="muted">Abrir en nueva pestaña para verificar funcionamiento.</div>
+      </div>
+
+      <div class="card">
+        <h3>🚀 Estado Piskuy</h3>
+        <div class="kvs">
+          <div>LEAD Power+</div><div><span class="badge ok">⚡ Activo</span></div>
+          <div>Arena Deena</div><div><span class="badge ok">🔒 Operativo</span></div>
+          <div>Network Analyzer</div><div><span class="badge ok">🌐 Conectado</span></div>
+          <div>IA Generator</div><div><span class="badge ok">🧠 Funcional</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="panel.js"></script>
+</body>
+</html>
