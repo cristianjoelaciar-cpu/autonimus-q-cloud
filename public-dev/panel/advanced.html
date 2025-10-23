@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Autonimus-Q Cloud - Panel IA Avanzado</title>
+    <link rel="stylesheet" href="../ui/advanced-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-grid">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="nav-section">
+                <h3>Panel Principal</h3>
+                <a href="#dashboard" class="nav-item active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt icon"></i>
+                    Dashboard
+                </a>
+                <a href="#analytics" class="nav-item" data-section="analytics">
+                    <i class="fas fa-chart-line icon"></i>
+                    Analytics
+                </a>
+                <a href="#users" class="nav-item" data-section="users">
+                    <i class="fas fa-users icon"></i>
+                    Usuarios
+                </a>
+            </div>
+            
+            <div class="nav-section">
+                <h3>Sistema</h3>
+                <a href="#security" class="nav-item" data-section="security">
+                    <i class="fas fa-shield-alt icon"></i>
+                    Seguridad
+                </a>
+                <a href="#logs" class="nav-item" data-section="logs">
+                    <i class="fas fa-file-alt icon"></i>
+                    Logs
+                </a>
+                <a href="#backup" class="nav-item" data-section="backup">
+                    <i class="fas fa-database icon"></i>
+                    Backups
+                </a>
+            </div>
+            
+            <div class="nav-section">
+                <h3>Configuración</h3>
+                <a href="#settings" class="nav-item" data-section="settings">
+                    <i class="fas fa-cog icon"></i>
+                    Configuración
+                </a>
+                <a href="#commands" class="nav-item" data-section="commands">
+                    <i class="fas fa-terminal icon"></i>
+                    Comandos
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="page-header">
+                <div class="header-info">
+                    <h1 id="pageTitle">🚀 Dashboard Autonimus-Q Cloud</h1>
+                    <span id="connectionStatus" class="badge ok pulse">🟢 Sistema Conectado</span>
+                </div>
+                
+                <div class="header-actions">
+                    <div class="form-field">
+                        <input type="password" id="token" class="form-input" placeholder="Panel Token" style="width: 200px;">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Section -->
+            <section id="section-dashboard" class="content-section">
+                <div class="metric-cards">
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <span class="metric-title">Estado del Sistema</span>
+                            <i class="fas fa-server metric-icon"></i>
+                        </div>
+                        <div class="metric-value" id="systemStatus">Online</div>
+                        <div class="metric-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>99.9% Uptime</span>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <span class="metric-title">Base de Datos</span>
+                            <i class="fas fa-database metric-icon"></i>
+                        </div>
+                        <div class="metric-value" id="dbStatus">Conectada</div>
+                        <div class="metric-change positive">
+                            <i class="fas fa-check"></i>
+                            <span>Latencia: 12ms</span>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <span class="metric-title">Usuarios Activos</span>
+                            <i class="fas fa-users metric-icon"></i>
+                        </div>
+                        <div class="metric-value" id="activeUsers">24</div>
+                        <div class="metric-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>+12% esta semana</span>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card warning">
+                        <div class="metric-header">
+                            <span class="metric-title">Uso de Memoria</span>
+                            <i class="fas fa-memory metric-icon"></i>
+                        </div>
+                        <div class="metric-value">78%</div>
+                        <div class="metric-change negative">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Alto uso</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <div class="table-header">
+                        <span class="table-title">📊 Métricas en Tiempo Real</span>
+                    </div>
+                    <div class="chart-placeholder">
+                        Gráficos de rendimiento del sistema
+                        <br><small>CPU, Memoria, Red, I/O</small>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section id="section-analytics" class="content-section" style="display: none;">
+                <div class="data-table">
+                    <div class="table-header">
+                        <span class="table-title">📈 Analytics del Sistema</span>
+                        <div class="table-actions">
+                            <button class="btn btn-primary" onclick="loadAnalytics()">
+                                <i class="fas fa-sync"></i> Actualizar
+                            </button>
+                        </div>
+                    </div>
+                    <div id="analyticsContent">
+                        <div class="chart-placeholder">
+                            Cargando datos de analytics...
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Users Section -->
+            <section id="section-users" class="content-section" style="display: none;">
+                <div class="data-table">
+                    <div class="table-header">
+                        <span class="table-title">👥 Gestión de Usuarios</span>
+                        <div class="table-actions">
+                            <button class="btn btn-success" onclick="showCreateUserModal()">
+                                <i class="fas fa-plus"></i> Nuevo Usuario
+                            </button>
+                            <button class="btn btn-primary" onclick="loadUsers()">
+                                <i class="fas fa-sync"></i> Actualizar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Usuario</th>
+                                    <th>Email</th>
+                                    <th>Rol</th>
+                                    <th>Estado</th>
+                                    <th>Último Login</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody">
+                                <tr>
+                                    <td colspan="6" style="text-align: center; padding: 2rem;">
+                                        Cargando usuarios...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Security Section -->
+            <section id="section-security" class="content-section" style="display: none;">
+                <div class="metric-cards">
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <span class="metric-title">Score de Seguridad</span>
+                            <i class="fas fa-shield-alt metric-icon"></i>
+                        </div>
+                        <div class="metric-value" id="securityScore">95</div>
+                        <div class="metric-change positive">
+                            <i class="fas fa-shield-check"></i>
+                            <span>Excelente</span>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <span class="metric-title">Amenazas Bloqueadas</span>
+                            <i class="fas fa-ban metric-icon"></i>
+                        </div>
+                        <div class="metric-value">142</div>
+                        <div class="metric-change positive">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>Últimas 24h</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <div class="table-header">
+                        <span class="table-title">🔒 Herramientas de Seguridad</span>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="performSecurityScan()">
+                            <i class="fas fa-search"></i> Escanear Sistema
+                        </button>
+                        <button class="btn btn-warning" onclick="showFirewallModal()">
+                            <i class="fas fa-firewall"></i> Firewall
+                        </button>
+                        <button class="btn btn-secondary" onclick="getSecurityAudit()">
+                            <i class="fas fa-clipboard-check"></i> Auditoría
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="securityResults" class="data-table" style="display: none;">
+                    <div class="table-header">
+                        <span class="table-title">📋 Resultados del Escaneo</span>
+                    </div>
+                    <div id="securityContent"></div>
+                </div>
+            </section>
+
+            <!-- Logs Section -->
+            <section id="section-logs" class="content-section" style="display: none;">
+                <div class="form-section">
+                    <div class="table-header">
+                        <span class="table-title">📝 Sistema de Logs</span>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="loadLogs()">
+                            <i class="fas fa-sync"></i> Actualizar Logs
+                        </button>
+                        <button class="btn btn-success" onclick="writeLog()">
+                            <i class="fas fa-edit"></i> Escribir Log
+                        </button>
+                        <button class="btn btn-danger" onclick="clearLogs()">
+                            <i class="fas fa-trash"></i> Limpiar Logs
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="terminal">
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">autonimus@cloud:~$</span>
+                        <span class="terminal-output">Mostrando logs del sistema...</span>
+                    </div>
+                    <div id="logBox" style="white-space: pre-wrap; font-family: monospace; color: var(--text-secondary);">
+                        Cargando logs del sistema...
+                    </div>
+                </div>
+            </section>
+
+            <!-- Backup Section -->
+            <section id="section-backup" class="content-section" style="display: none;">
+                <div class="form-section">
+                    <div class="table-header">
+                        <span class="table-title">💾 Sistema de Backups</span>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label class="form-label">Tipo de Backup</label>
+                            <select id="backupType" class="form-select">
+                                <option value="full">Completo</option>
+                                <option value="database">Solo Base de Datos</option>
+                                <option value="files">Solo Archivos</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="performBackup()">
+                            <i class="fas fa-download"></i> Crear Backup
+                        </button>
+                        <button class="btn btn-secondary" onclick="listBackups()">
+                            <i class="fas fa-list"></i> Listar Backups
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="backupResults" class="data-table" style="display: none;">
+                    <div class="table-header">
+                        <span class="table-title">📦 Backups Disponibles</span>
+                    </div>
+                    <div id="backupContent"></div>
+                </div>
+            </section>
+
+            <!-- Commands Section -->
+            <section id="section-commands" class="content-section" style="display: none;">
+                <div class="form-section">
+                    <div class="table-header">
+                        <span class="table-title">⚡ Comandos del Sistema</span>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" data-cmd="system_info">
+                            <i class="fas fa-info"></i> Info Sistema
+                        </button>
+                        <button class="btn btn-secondary" data-cmd="disk_usage">
+                            <i class="fas fa-hdd"></i> Uso Disco
+                        </button>
+                        <button class="btn btn-warning" data-cmd="memory_info">
+                            <i class="fas fa-memory"></i> Memoria
+                        </button>
+                        <button class="btn btn-success" data-cmd="network_status">
+                            <i class="fas fa-network-wired"></i> Red
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="terminal">
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">autonimus@cloud:~$</span>
+                        <span class="terminal-output">Sistema listo para comandos...</span>
+                    </div>
+                    <div id="commandOutput" style="white-space: pre-wrap; font-family: monospace; color: var(--text-secondary);">
+                        Ejecuta un comando para ver la salida aquí.
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="advanced-panel.js"></script>
+</body>
+</html>
